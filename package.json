@@ -1,0 +1,25 @@
+{
+  "name": "task-manager",
+  "version": "1.0.0",
+  "description": "Rest API backed by Koa.js and MariaDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haxul/Task-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haxul/Task-manager/issues"
+  },
+  "homepage": "https://github.com/haxul/Task-manager#readme",
+  "dependencies": {
+    "koa": "^2.10.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "mariadb": "^2.1.2"
+  }
+}
