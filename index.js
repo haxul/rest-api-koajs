@@ -7,9 +7,9 @@ const bodyParser = require('koa-body');
 
 const mariadb = require('mariadb');
 const pool = mariadb.createPool({
-     host: 'mydb.com', 
-     user:'myUser', 
-     password: 'myPassword',
+     host: '127.0.0.1', 
+     user:'root', 
+     password: 'root',
      connectionLimit: 5
 });
 
