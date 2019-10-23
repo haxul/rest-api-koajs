@@ -1,45 +1,38 @@
 const Koa = require('koa');
 const app = new Koa();
-const Router =  require("koa-router");
+const Router = require('koa-router');
 const router = new Router();
-const fs = require("fs");
+const fs = require('fs');
 const bodyParser = require('koa-body');
-
 const mariadb = require('mariadb');
+const bcrypt = require('bcrypt');
+
 const pool = mariadb.createPool({
-     host: '127.0.0.1', 
-     user:'root', 
-     password: 'root',
-     connectionLimit: 5
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  connectionLimit: 5
 });
 
-async function asyncFunction() {
-  let conn;
-  try {
-	conn = await pool.getConnection();
-	const rows = await conn.query("SELECT 1 as val");
-	console.log(rows); //[ {val: 1}, meta: ... ]
-	const res = await conn.query("INSERT INTO myTable value (?, ?)", [1, "mariadb"]);
-	console.log(res); // { affectedRows: 1, insertId: 1, warningStatus: 0 }
-
-  } catch (err) {
-	throw err;
-  } finally {
-	if (conn) return conn.end();
-  }
-}
-app.use(bodyParser( {urlencoded: true}));
+app.use(bodyParser({ urlencoded: true }));
 app.use(router.routes());
 
-router.get("/main", async ctx => {
-  ctx.body = 'Hello World!!!';
-  ctx.set('!!!!!!!!!!', '*');
-  ctx.header = "Content: Application";
+router.post('/register', async ctx => {
+  const conn = await pool.getConnection();
+  const inputData =  ctx.request.body ;
+  const email = inputData.email;
+  const password = inputData.password;
+  const response = await conn.query('select * from `task-manager`.`account` a  where `email`=(?)', [email]);
+  const user = response.pop();
+  if (user) {
+    ctx.throw(400,"User exists");
+    return;
+  }
+  const salt = "$2b$10$kWnyCWwJwCbFMhvFOnkCAu";
+  const hash = bcrypt.hashSync(password, salt)
+  conn.query("INSERT INTO `task-manager`.`account` (email, password) VALUES (?, ?)", [email, hash]);
+  conn.end();
+  ctx.body = "Person is created successfully";
 });
 
-router.post("/main", async ctx => {
-  console.log(ctx.request.body);
-  ctx.body = { a: 1, b: 2, c: [3, 4]};
-})
-
-app.listen(3000, () => console.log("server is running "));
+app.listen(3000, () => console.log('server is running '));
