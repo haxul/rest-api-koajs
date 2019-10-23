@@ -1,15 +1,6 @@
-const salt = '$2b$10$kWnyCWwJwCbFMhvFOnkCAu';
-const bodyParser = require('koa-body');
-const mariadb = require('mariadb');
+const pool = require("../helpers/pool");
 const bcrypt = require('bcrypt');
-const randomstring = require('randomstring');
-
-const pool = mariadb.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  connectionLimit: 5
-});
+const salt = require("../helpers/salt");
 
 module.exports = async ctx => {
   const conn = await pool.getConnection();
