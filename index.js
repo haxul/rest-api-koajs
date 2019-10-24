@@ -12,13 +12,6 @@ const signin = require("./controllers/signin");
 const addTask = require("./controllers/addTask");
 //============================
 
-const pool = mariadb.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  connectionLimit: 5
-});
-
 app.use(bodyParser({ urlencoded: true }));
 app.use(router.routes());
 
