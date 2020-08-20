@@ -1,5 +1,5 @@
-# Task-manager
-Rest API backed by Koa.js and MariaDB
+
+### Rest API backed by Koa.js and MariaDB
 
 Entities: 
 - 1.Accout(email(varchar), password(varchar),tasksProcessing(oneToMany), tasksDone(oneToMany), tasksToProcess(oneToMany))
