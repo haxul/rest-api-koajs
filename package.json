@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/haxul/Task-manager#readme",
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "koa": "^2.10.0",
     "koa-body": "^4.1.1",
     "koa-router": "^7.4.0",
